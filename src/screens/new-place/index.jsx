@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { View, Text, ScrollView, TextInput, Button } from "react-native";
 import { useDispatch } from "react-redux";
 
@@ -8,39 +8,40 @@ import colors from "../../utils/colors";
 import { styles } from "./styles";
 
 const NewPlace = ({ navigation }) => {
-  const [title, setTitle] = useState("");
-  const [image, setImage] = useState(null);
-  const [coords, setCoords] = useState(null);
   const dispatch = useDispatch();
-
-  const onHandleSubmit = () => {
-    dispatch(savePlace({ title, image, coords }));
-    navigation.navigate("Places");
-  };
+  const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
+  const [location, setLocation] = useState(null);
 
   const onHandleChange = (text) => {
     setTitle(text);
   };
 
-  const onImagePicker = (uri) => {
-    setImage(uri);
+  const onHandleSubmit = () => {
+    dispatch(savePlace(title, image, location));
+    navigation.navigate("Places");
   };
-  const onLocationPicker = (location) => {
-    console.warn(location);
-    setCoords(location);
+
+  const onHandleImageSelect = (imageUrl) => {
+    setImage(imageUrl);
+  };
+
+  const onHandleLocationSelect = (location) => {
+    setLocation(location);
   };
   return (
     <ScrollView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Titulo</Text>
         <TextInput
-          onChangeText={onHandleChange}
           style={styles.input}
-          placeholder="Escribe el lugar"
+          placeholder="Nuevo ubicacion"
+          onChangeText={onHandleChange}
+          value={title}
         />
-        <ImageSelector onImagePicker={onImagePicker} />
-        <LocationSelector onLocationPicker={onLocationPicker} />
-        <Button color={colors.primary} title="Guardar direccion" onPress={onHandleSubmit} />
+        <ImageSelector onImage={onHandleImageSelect} />
+        <LocationSelector onLocation={onHandleLocationSelect} />
+        <Button title="Grabar dirección" color={colors.primary} onPress={onHandleSubmit} />
       </View>
     </ScrollView>
   );

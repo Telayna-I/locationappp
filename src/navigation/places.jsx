@@ -1,4 +1,4 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import IonicIcons from "@expo/vector-icons/Ionicons";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { Platform, TouchableOpacity } from "react-native";
@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 const PlacesNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName="Places"
+      initialRouteName="Place"
       screenOptions={{
         headerStyle: {
           backgroundColor: Platform.OS === "android" ? colors.primary : colors.secondary,
@@ -28,7 +28,7 @@ const PlacesNavigator = () => {
           title: "Direcciones",
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate("NewPlace")}>
-              <Ionicons name="add-circle-outline" size={25} color={colors.black} />
+              <IonicIcons name="add-circle-outline" size={25} color={colors.black} />
             </TouchableOpacity>
           ),
         })}
